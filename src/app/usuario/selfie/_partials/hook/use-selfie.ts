@@ -6,6 +6,7 @@ import { DwellingData2 } from "#/app/usuario/vivienda/_partials/utils";
 import useAxios from "#/helpers/hook/use-axios";
 import { useRouter } from "next/navigation";
 import { FormikResponse } from "#/helpers/types";
+import { useDetectionImageFormStore } from "#/helpers/hook/use.detect-store";
 
 /**
  * Custom hook to handle selfie submission.
@@ -14,6 +15,7 @@ import { FormikResponse } from "#/helpers/types";
 const useSelfie = (): FormikResponse<SelfieData> => {
   const router = useRouter();
   const { register, dwelling, resetForm } = useFormStore();
+  const { resetDetectedImages } = useDetectionImageFormStore();
   const useRequest = useAxios();
 
   /**
@@ -60,10 +62,11 @@ const useSelfie = (): FormikResponse<SelfieData> => {
 
       // Make the API request
       const results = await useRequest.post("/user/create", formData);
-      console.log(results);
+
       if (results.status === 201) {
         resetForm("dwelling");
         resetForm("register");
+        resetDetectedImages();
 
         // Await the router.push call
         router.push("/usuario");

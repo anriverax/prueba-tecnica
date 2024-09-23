@@ -45,20 +45,3 @@ export const formResponseError = (
  * @param {string} requiredMessage - The error message for the required validation.
  */
 export const stringField = (requiredMessage: string) => string().required(requiredMessage);
-
-export const fileToImage = (file: any) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const img: any = new Image();
-      img.src = reader.result;
-
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-    };
-
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-};

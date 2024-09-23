@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { WebcamCustom } from "./_partials/WebcamCustom";
 import { useSelfie } from "./_partials/hook/use-selfie";
+import Note from "./_partials/note";
 
 /**
  * Component for the Selfie page
@@ -34,6 +35,7 @@ const PageSelfie = (): React.JSX.Element => {
           handleSubmit={handleSubmit}
           setFieldValue={setFieldValue}
         />
+        <Note />
       </div>
     </div>
   );

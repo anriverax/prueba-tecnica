@@ -4,6 +4,10 @@ import { Metadata, UserData, UserResponse } from "../util";
 import { AxiosResponse } from "axios";
 import { useDisclosure } from "@nextui-org/react";
 
+/**
+ * Custom hook for managing user table data and behaviors.
+ * @returns An object containing users, metadata, loading state, selected item, visibility state, and related functions.
+ */
 const useTableCustom = () => {
   const axiosRequest = useAxios();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -12,7 +16,7 @@ const useTableCustom = () => {
   const [users, setUsers] = useState<UserData[]>([]);
   const [metadata, setMetadata] = useState<Metadata>({
     page: 1,
-    pageSize: 10,
+    pageSize: 1,
     total: 0,
     totalPages: 1
   });
@@ -25,6 +29,10 @@ const useTableCustom = () => {
     { key: "actions", label: "Acciones" }
   ];
 
+  /**
+   * Fetches users from the API based on the specified page number.
+   * @param page - The page number to fetch.
+   */
   const loadUsers = async (page: number) => {
     setIsLoading(true);
     try {
@@ -44,6 +52,12 @@ const useTableCustom = () => {
     }
   };
 
+  /**
+   * Renders the content of a table cell based on the column key.
+   * @param user - The user data for the current row.
+   * @param columnKey - The key of the column being rendered.
+   * @returns A React node representing the cell content.
+   */
   const renderCell = useCallback(
     (user: UserData, columnKey: Key) => {
       switch (columnKey) {
@@ -69,13 +83,15 @@ const useTableCustom = () => {
           break;
       }
     },
-    [isOpen, onOpen, onOpenChange]
+    [onOpen]
   );
 
+  /* eslint-disable */
   useEffect(() => {
     void (async () => loadUsers(1))();
   }, []);
 
+  /* eslint-enable */
   return {
     INITIAL_VISIBLE_COLUMNS,
     users,

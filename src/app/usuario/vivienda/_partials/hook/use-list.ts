@@ -11,9 +11,9 @@ import { useFormStore } from "#/helpers/hook/use-store";
  */
 export type ListProps = {
   departamentId: string;
-  setFieldValue: (
-    field: string,
-    value: number,
+  setFieldValue: <K extends keyof DwellingData>(
+    field: K,
+    value: DwellingData[K],
     shouldValidate?: boolean
   ) => Promise<FormikErrors<DwellingData>> | Promise<void>;
 };

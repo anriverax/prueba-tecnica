@@ -17,7 +17,6 @@ const axiosConfig = axios.create({
 /**
  * Custom hook for making Axios requests with NextAuth.js session handling.
  *
- * @param isPrivate - Indicates whether the request requires authentication.
  * @returns Axios instance with interceptors for handling sessions and errors.
  */
 const useAxios = () => {
@@ -26,10 +25,7 @@ const useAxios = () => {
     // Request interceptor
     const requestIntercept = axiosConfig.interceptors.request.use(
       (config) => {
-        /*
-        if (isPrivate && !config.headers["Authorization"]) {
-          config.headers["Authorization"] = `Bearer ${session?.token.accessToken}`;
-        }*/
+        config.headers["X-API-Key"] = process.env.NEXT_PUBLIC_CLIENT_API_KEY;
 
         return config;
       },
@@ -43,15 +39,7 @@ const useAxios = () => {
         const prevRequest: any = error?.config;
         if (error?.response?.status === 401 && !prevRequest?.sent) {
           prevRequest.sent = true;
-          alert("trohno");
-          // Uncomment the following line for logging instead of alert
-          // console.log("Token refresh needed");
 
-          // Uncomment and complete the logic for refreshing tokens if needed
-          // await refreshToken();
-
-          // Uncomment and fix the logic for setting the new token in headers
-          // prevRequest.headers["Authorization"] = `Bearer ${session?.token.accessToken}`;
           return axiosConfig(prevRequest);
         }
         return Promise.reject(error);

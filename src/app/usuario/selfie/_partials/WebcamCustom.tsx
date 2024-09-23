@@ -7,7 +7,7 @@ import { Button } from "@nextui-org/react";
 import Webcam from "react-webcam";
 import { FormikErrors } from "formik";
 import { SelfieData } from "./utils";
-import { useFaceApi } from "./hook/use-faceApi";
+import { useFaceApi } from "#/helpers/hook/use-faceApi";
 
 /**
  * Props interface for WebcamCustom component
@@ -19,9 +19,9 @@ interface WebcamCustomProps {
   touched?: boolean | undefined;
   errors?: string | undefined;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement>) => void;
-  setFieldValue: (
-    field: string,
-    value: string,
+  setFieldValue: <K extends keyof SelfieData>(
+    field: K,
+    value: SelfieData[K],
     shouldValidate?: boolean
   ) => Promise<FormikErrors<SelfieData>> | Promise<void>;
 }
@@ -38,7 +38,7 @@ interface WebcamCustomProps {
 export const WebcamCustom = (props: WebcamCustomProps) => {
   const [webcamOpen, setWebcamOpen] = useState<boolean>(false);
   const webcamRef = useRef<Webcam>(null);
-  const { compareFaces, isLoading, setIsLoading } = useFaceApi();
+  const { compareFaces, isLoading, msg, setIsLoading, detectFaceApiStatus } = useFaceApi();
 
   const { value, touched, errors, handleSubmit, setFieldValue } = props;
 
@@ -71,8 +71,8 @@ export const WebcamCustom = (props: WebcamCustomProps) => {
   const renderCapturedSelfie = (): React.JSX.Element => (
     <div className="mt-4">
       <Image src={value} alt="Captured selfie" width={644} height={484} />
-
-      <div className="flex justify-center mt-2 mb-8">
+      {detectFaceApiStatus()}
+      <div className="flex justify-center mt-2 mb-4">
         <div>
           <Button
             isIconOnly
@@ -87,13 +87,15 @@ export const WebcamCustom = (props: WebcamCustomProps) => {
           <p className="font-semibold">Cambiar foto</p>
         </div>
       </div>
+
       <form onSubmit={handleSubmit} className="flex justify-center">
         <Button
           isLoading={isLoading}
+          isDisabled={msg.color === "primary-400" ? false : true}
           type="submit"
           className="bg-[rgba(255,92,0,1)] text-white rounded-md font-semibold"
         >
-          Continuar
+          Finalizar
         </Button>
       </form>
     </div>

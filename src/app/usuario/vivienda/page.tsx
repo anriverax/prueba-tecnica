@@ -6,6 +6,8 @@ import { Button, Input, Link, Select, SelectItem, Textarea } from "@nextui-org/r
 import DropzoneCustom from "./_partials/dropzoneCustom";
 import { useDwelling } from "./_partials/hook/use-dwelling";
 import { useList } from "./_partials/hook/use-list";
+import Indication from "./_partials/indication";
+import { useDetectionImageFormStore } from "#/helpers/hook/use.detect-store";
 
 /**
  * Component for the Dwelling page
@@ -28,6 +30,7 @@ const PageVivienda = (): React.JSX.Element => {
     departamentId: values.departmentId.toString(),
     setFieldValue
   });
+  const { detectedImages } = useDetectionImageFormStore();
 
   return (
     <div>
@@ -141,6 +144,7 @@ const PageVivienda = (): React.JSX.Element => {
           {/* Custom Dropzone component */}
           <div className="w-full md:px-6 lg:px-24">
             <h2 className="text-2xl font-semibold my-12">Fotografía de documento de identidad</h2>
+            <Indication />
             <div>
               <DropzoneCustom
                 value={values.image}
@@ -158,6 +162,7 @@ const PageVivienda = (): React.JSX.Element => {
           </Button>
           <Button
             isLoading={isSubmitting}
+            isDisabled={Boolean(detectedImages.length === 0)}
             type="submit"
             className="bg-[rgba(255,92,0,1)] text-white rounded-md text-base w-40"
           >

@@ -9,7 +9,7 @@ const UserPage = () => {
   /* eslint-enable */
   return (
     <div>
-      <div className="mx-auto bg-[url('/images/bg.png')] bg-cover w-full h-20 flex justify-between items-center bg-red-600">
+      <div className="mx-auto bg-[url('/images/bg.png')] bg-cover w-full h-20 flex justify-between items-center">
         <Image
           src="/images/topbar.png"
           alt="title"

@@ -1,9 +1,10 @@
-import React from "react";
-import { Image } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 import NextImage from "next/image";
 
-import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
-import { UserData } from "../util";
+import { Image, Modal, ModalBody, ModalContent, ModalHeader, Spinner } from "@nextui-org/react";
+import { UserData } from "./util";
+import { SelectBox } from "#/helpers/types";
+import { typeDocumentItems } from "#/helpers/constants";
 
 interface ModalCustomProps {
   user: UserData;
@@ -12,7 +13,36 @@ interface ModalCustomProps {
 }
 
 const ModalCustom = (props: ModalCustomProps) => {
+  const [country, setCountry] = useState<{ cityName: string; stateName: string }>();
   const { user, isOpen, onOpenChange } = props;
+
+  const getTypeDocument = (id: number): string => {
+    const result = typeDocumentItems.find((item: SelectBox) => item.id === id);
+    return result ? result.name : "";
+  };
+
+  useEffect(() => {
+    // Fetches the list of municipalities based on the selected department.
+    void (async () => {
+      try {
+        const result = await fetch(
+          `https://countries-mkag.onrender.com/api/city?filter=id&value=${user.municipalityId}&fields=name&include=true`
+        );
+
+        if (!result.ok) {
+          throw new Error("Network response was not ok");
+        }
+        /* eslint-disable */
+        const data = await result.json();
+        if (data) setCountry({ cityName: data.name, stateName: data.State.name });
+      } catch (error) {
+        const e: string =
+          error instanceof Error ? error.message : "An error occurred while fetching species data";
+
+        console.log(e);
+      }
+    })();
+  }, [user.municipalityId, setCountry]);
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior="inside" size="2xl">
@@ -34,14 +64,18 @@ const ModalCustom = (props: ModalCustomProps) => {
             </div>
             <div>
               <h2 className="text-center text-[20px] mb-5 font-semibold md:text-left">{`${user.names} ${user.surnames}`}</h2>
-              <div className="w-full grid grid-cols-2 text-center gap-4 md:w-2/3 md:text-left">
+              <div className="w-full grid grid-cols-2 text-center gap-4 md:text-left">
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">Correo electrónico</h3>
                   <p>{user.address}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">Departamento</h3>
-                  <p>San Salvador</p>
+                  {country === undefined ? (
+                    <Spinner size="sm" color="primary" />
+                  ) : (
+                    <p>{country.stateName}</p>
+                  )}
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">Número de teléfono</h3>
@@ -49,11 +83,15 @@ const ModalCustom = (props: ModalCustomProps) => {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">Municipio</h3>
-                  <p>San Jacinto</p>
+                  {country === undefined ? (
+                    <Spinner size="sm" color="primary" />
+                  ) : (
+                    <p>{country.cityName}</p>
+                  )}
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">Tipo de documento</h3>
-                  <p>{user.typeDocumentId}</p>
+                  <p>{getTypeDocument(user.typeDocumentId)}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-gray-500">Dirección</h3>

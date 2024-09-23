@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import { UserData } from "./util";
 import { useTableCustom } from "./hook/use-tableCustom";
-import ModalCustom from "./hook/modalCustom";
+import ModalCustom from "./modalCustom";
 
 const TableCustom = () => {
   const {
@@ -51,7 +51,7 @@ const TableCustom = () => {
               color="default"
               variant="light"
               classNames={{
-                cursor: "!bg-white !shadow-none rounded border font-semibold"
+                cursor: "!bg-white !shadow-none rounded border border-primary font-semibold"
               }}
             />
           </div>
