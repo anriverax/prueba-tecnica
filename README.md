@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Awesome Next.js Project
 
-## Getting Started
+Welcome to our fantastic Next.js project! Get ready to experience the power of server-side rendering and the simplicity of React, all in one package. 🎉
 
-First, run the development server:
+## 🌟 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- ⚡️ Lightning-fast performance
+- 🎨 Beautiful, responsive design
+- 🔒 Built-in security features
+- 🌐 SEO optimization out of the box
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Prerequisites
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Before you begin, ensure you have the following installed:
+- Node.js (v14 or later)
+- npm (usually comes with Node.js)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+Follow these simple steps to get your project up and running:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/yourusername/your-nextjs-project.git
+   cd your-nextjs-project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Sugerencias para Futuras Mejoras
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Debido a limitaciones de tiempo, las siguientes funcionalidades no se implementaron pero se recomiendan para futuras iteraciones del proyecto:
+
+### Componente de Carga de Documentos
+
+1. **Validación de Legibilidad**: 
+   - Implementar un sistema que verifique la legibilidad de los documentos cargados.
+   - Proporcionar retroalimentación inmediata al usuario si el documento no cumple con los estándares de legibilidad requeridos.
+
+2. **Verificación de Calidad de Imagen**:
+   - Añadir un proceso de verificación de la calidad de las imágenes, especialmente para aquellas utilizadas en el reconocimiento facial.
+   - Establecer umbrales mínimos de resolución y claridad para garantizar un reconocimiento facial preciso.
+
+3. **Guías de Usuario**:
+   - Incluir notas de pie o tooltips en el componente de carga que proporcionen instrucciones claras sobre los requisitos de los documentos.
+   - Ejemplo: "Asegúrese de que el texto en el documento sea claramente legible y que las fotos tengan buena iluminación y enfoque para un reconocimiento facial exitoso."
+
+
+Estas mejoras ayudarán a garantizar que los documentos cargados cumplan con los estándares necesarios para un procesamiento eficiente y preciso, mejorando así la experiencia del usuario y la eficacia del sistema.
