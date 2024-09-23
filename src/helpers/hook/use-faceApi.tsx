@@ -52,7 +52,7 @@ const useFaceApi = () => {
         const img2 = await faceapi.bufferToImage(imgBlob);
 
         const detections: FaceApiResult = await faceapi
-          .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.4 }))
+          .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.5 }))
           .withFaceLandmarks()
           .withFaceDescriptor();
 
@@ -78,7 +78,10 @@ const useFaceApi = () => {
       // Convert the captured image buffer to an HTMLImageElement
       const img1 = await faceapi.bufferToImage(capturedImage);
       // Detect face in the captured image
-      const detections1 = await faceapi.detectSingleFace(img1).withFaceLandmarks().withFaceDescriptor();
+      const detections1 = await faceapi
+        .detectSingleFace(img1, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.4 }))
+        .withFaceLandmarks()
+        .withFaceDescriptor();
 
       if (!detections1) {
         setMsg({ color: "danger", message: "No se detecta ningún rostro en la selfie." });
