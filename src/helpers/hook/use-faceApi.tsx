@@ -52,7 +52,7 @@ const useFaceApi = () => {
         const img2 = await faceapi.bufferToImage(imgBlob);
 
         const detections: FaceApiResult = await faceapi
-          .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.5 }))
+          .detectSingleFace(img2, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.4 }))
           .withFaceLandmarks()
           .withFaceDescriptor();
 
