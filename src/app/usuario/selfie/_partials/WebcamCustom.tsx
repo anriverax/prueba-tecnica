@@ -18,6 +18,7 @@ interface WebcamCustomProps {
   value: string;
   touched?: boolean | undefined;
   errors?: string | undefined;
+  isSubmitting: boolean;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement>) => void;
   setFieldValue: <K extends keyof SelfieData>(
     field: K,
@@ -40,7 +41,7 @@ export const WebcamCustom = (props: WebcamCustomProps) => {
   const webcamRef = useRef<Webcam>(null);
   const { compareFaces, isLoading, msg, setIsLoading, detectFaceApiStatus } = useFaceApi();
 
-  const { value, touched, errors, handleSubmit, setFieldValue } = props;
+  const { value, touched, errors, isSubmitting, handleSubmit, setFieldValue } = props;
 
   /**
    * Captures a photo from the webcam, updates the form field, and initiates face comparison.
@@ -90,7 +91,7 @@ export const WebcamCustom = (props: WebcamCustomProps) => {
 
       <form onSubmit={handleSubmit} className="flex justify-center">
         <Button
-          isLoading={isLoading}
+          isLoading={isLoading || isSubmitting}
           isDisabled={msg.color === "primary-400" ? false : true}
           type="submit"
           className="bg-[rgba(255,92,0,1)] text-white rounded-md font-semibold"

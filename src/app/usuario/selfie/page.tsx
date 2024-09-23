@@ -14,7 +14,7 @@ import Note from "./_partials/note";
 const PageSelfie = (): React.JSX.Element => {
   const formik = useSelfie(); // Get formik instance from useSelfie hook
 
-  const { values, setFieldValue, handleSubmit, touched, errors } = formik;
+  const { values, setFieldValue, isSubmitting, handleSubmit, touched, errors } = formik;
 
   return (
     <div>
@@ -32,6 +32,7 @@ const PageSelfie = (): React.JSX.Element => {
           value={values.selfie}
           touched={touched.selfie}
           errors={errors.selfie}
+          isSubmitting={isSubmitting}
           handleSubmit={handleSubmit}
           setFieldValue={setFieldValue}
         />

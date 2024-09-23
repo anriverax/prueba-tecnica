@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import TableCustom from "./_partials/TableCustom";
+import { Button, Link } from "@nextui-org/react";
 
 /* eslint-disable */
 const UserPage = () => {
@@ -21,6 +22,13 @@ const UserPage = () => {
       </div>
       <div className="px-14">
         <h2 className="text-2xl font-semibold my-12">Historial de registro</h2>
+        <Button
+          as={Link}
+          href="/usuario/registrar"
+          className="bg-[rgba(255,92,0,1)] text-white rounded-md font-semibold mb-8"
+        >
+          Crear usuario
+        </Button>
         <TableCustom />
       </div>
     </div>
